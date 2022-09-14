@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { addMovies } from "../../features/movies/movieSlice";
 
 export const Home = () => {
-  const movieText = "Harry potter";
+  const movieText = "Harry";
   const dispatch = useDispatch();
 
   useEffect(() => {
