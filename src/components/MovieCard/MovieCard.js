@@ -9,7 +9,7 @@ export const MovieCard = (props) => {
 
   return (
     <div className="card-item">
-      <Link to={`/movie/${props.movie.imdID}`}>
+      <Link to={`/movie/${props.movie.imdbID}`}>
         <div className="card-inner">
           <div className="card-top">
             <img src={props.movie.Poster} alt={props.movie.Title} />

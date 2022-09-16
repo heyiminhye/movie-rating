@@ -6,9 +6,8 @@ import "./MovieListing.scss";
 
 export const MovieListing = () => {
   const movies = useSelector(getAllMovies);
-  const shows = useSelector(getAllShows);
+  // const shows = useSelector(getAllShows);
 
-  console.log(shows);
   // let renderMovies = "";
 
   // renderMovies =
@@ -40,34 +39,33 @@ export const MovieListing = () => {
     );
   }
 
-  let renderShows = [];
+  // let renderShows = [];
 
-  if (shows.Response === "True") {
-    shows.Search.map((movie, idx) => {
-      renderShows.push(
-        <Fragment key={idx}>
-          <MovieCard movie={movie} />
-        </Fragment>
-      );
-    });
-  } else {
-    renderShows.push(
-      <div className="shows-error">
-        <h3>{shows.Error}</h3>
-      </div>
-    );
-  }
+  // if (shows.Response === "True") {
+  //   shows.Search.map((movie, idx) => {
+  //     renderShows.push(
+  //       <Fragment key={idx}>
+  //         <MovieCard movie={movie} />
+  //       </Fragment>
+  //     );
+  //   });
+  // } else {
+  //   renderShows.push(
+  //     <div className="shows-error">
+  //       <h3>{shows.Error}</h3>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="movie-wrapper">
       <div className="movie-list">
-        <h2>Movies</h2>
         <div className="movie-container">{renderMovies}</div>
       </div>
-      <div className="show-list">
+      {/* <div className="show-list">
         <h2>Shows</h2>
         <div className="movie-container">{renderShows}</div>
-      </div>
+      </div> */}
     </div>
   );
 };

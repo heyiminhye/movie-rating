@@ -10,21 +10,30 @@ export const fetchAsyncMovies = createAsyncThunk(
     const movieText = "Harry";
 
     const response = await movieApi.get(
-      `?i=tt3896198&APIkey=${APIkey}&s=${movieText}&type=movie`
+      `?apiKey=${APIkey}&s=${movieText}&type=movie`
     );
 
     return response.data;
   }
 );
 
-export const fetchAsyncShows = createAsyncThunk(
-  "movies/fetchAsyncShows",
-  async () => {
-    const seriesText = "Friend";
+// export const fetchAsyncShows = createAsyncThunk(
+//   "movies/fetchAsyncShows",
+//   async () => {
+//     const seriesText = "Friend";
 
-    const response = await movieApi.get(
-      `?i=tt3896198&APIkey=${APIkey}&s=${seriesText}&type=movie`
-    );
+//     const response = await movieApi.get(
+//       `?apiKey=${APIkey}&s=${seriesText}&type=movie`
+//     );
+
+//     return response.data;
+//   }
+// );
+
+export const fetchAsyncMovieOrShowDetail = createAsyncThunk(
+  "movies/fetchAsyncMovieOrShowDetail",
+  async (id) => {
+    const response = await movieApi.get(`?apiKey=${APIkey}&i=${id}&Plot=full`);
 
     return response.data;
   }
@@ -32,15 +41,16 @@ export const fetchAsyncShows = createAsyncThunk(
 
 const initialState = {
   movies: {},
-  shows: {},
+  // shows: {},
+  SelectMovieOrShow: {},
 };
 
 const movieSlice = createSlice({
   name: "movies",
   initialState,
   reducers: {
-    addMovies: (state, { payload }) => {
-      state.movies = payload;
+    removeSelectMovieOrShow: (state) => {
+      state.selectMovieOrShow = {};
     },
   },
   extraReducers: {
@@ -54,16 +64,21 @@ const movieSlice = createSlice({
     [fetchAsyncMovies.rejected]: () => {
       console.log("rejected");
     },
-    [fetchAsyncShows.fulfilled]: (state, { payload }) => {
-      console.log("fetchAsyncShows fulfilled");
-      return { ...state, shows: payload };
+    // [fetchAsyncShows.fulfilled]: (state, { payload }) => {
+    //   console.log("fetchAsyncShows fulfilled");
+    //   return { ...state, shows: payload };
+    // },
+    [fetchAsyncMovieOrShowDetail.fulfilled]: (state, { payload }) => {
+      console.log("fetchAsyncMovieOrShowDetail fulfilled");
+      return { ...state, SelectMovieOrShow: payload };
     },
   },
 });
 
-export const { addMovies } = movieSlice.actions; // 액션 크리에이터 내보내기
+export const { removeSelectMovieOrShow } = movieSlice.actions; // 액션 크리에이터 내보내기
 export const getAllMovies = (state) => state.movies.movies;
-export const getAllShows = (state) => state.movies.shows;
+// export const getAllShows = (state) => state.movies.shows;
+export const getSelectMovieOrShow = (state) => state.movies.SelectMovieOrShow;
 export default movieSlice.reducer; // 리듀서 내보내기
 
 // before ex)
